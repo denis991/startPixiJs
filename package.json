@@ -1,0 +1,20 @@
+{
+  "name": "startpixijs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denis991/startPixiJs.git"
+  },
+  "keywords": [],
+  "author": "Den gu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/denis991/startPixiJs/issues"
+  },
+  "homepage": "https://github.com/denis991/startPixiJs#readme"
+}
