@@ -6,8 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<script src="js/pixi-legacy.js"></script>
 <body>
   <canvas id="canvas"></canvas>
   <script src="./js/index.js" type="module"></script>
+  <script type="text/javascript">
+    let type = 'WebGL';
+    if (!PIXI.utils.isWebGLSupported()) {
+      type = 'canvas';
+    }
+    </script>
 </body>
 </html>
