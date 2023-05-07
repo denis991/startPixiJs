@@ -1,6 +1,7 @@
 // import * as PIXI from './pixi.mjs';
-// import * as PIXI from './pixi-legacy.js';
-
+import * as PIXI from './pixi-legacy.js';
+import { BlurFilter, Container, Graphics, Sprite } from './pixi-legacy.mjs';
+let type = 'WebGL';
 console.log(PIXI);
 
 // let type = 'WebGL';
@@ -34,26 +35,41 @@ console.log(PIXI);
 //   bunny.rotation += 0.1 * delta;
 // });
 
-import { BlurFilter, Container, Graphics, Sprite } from 'pixi.js';
 
-const container = new Container();
-const sprite = Sprite.from('https://s3-us-west-2.amazonaws.com/s.cdpn.io/693612/IaUrttj.png');
 
-sprite.width = 512;
-sprite.height = 512;
+const app = new PIXI.Application({ background: '#1099bb' });
+document.body.appendChild(app.view);
 
-// Adds a sprite as a child to this container. As a result, the sprite will be rendered whenever the container
-// is rendered.
-container.addChild(sprite);
+const container = new PIXI.Container();
 
-// Blurs whatever is rendered by the container
-container.filters = [new BlurFilter()];
+app.stage.addChild(container);
 
-// Only the contents within a circle at the center should be rendered onto the screen.
-container.mask = new Graphics()
-	.beginFill(0xffffff)
-	.drawCircle(sprite.width / 2, sprite.height / 2, Math.min(sprite.width, sprite.height) / 2)
-	.endFill();
+// Create a new texture
+const texture = PIXI.Texture.from('examples/assets/bunny.png');
+
+// Create a 5x5 grid of bunnies
+for (let i = 0; i < 25; i++) {
+    const bunny = new PIXI.Sprite(texture);
+    bunny.anchor.set(0.5);
+    bunny.x = (i % 5) * 40;
+    bunny.y = Math.floor(i / 5) * 40;
+    container.addChild(bunny);
+}
+
+// Move container to the center
+container.x = app.screen.width / 2;
+container.y = app.screen.height / 2;
+
+// Center bunny sprite in local container coordinates
+container.pivot.x = container.width / 2;
+container.pivot.y = container.height / 2;
+
+// Listen for animate update
+app.ticker.add((delta) => {
+    // rotate the container!
+    // use delta to create frame-independent transform
+    container.rotation -= 0.01 * delta;
+});
 
 /****** */
 // пример наследования
